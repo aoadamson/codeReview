@@ -1,9 +1,6 @@
-import requests, six
+import requests
 import lxml.html as lh
-# from itertools import cycle, islice
-# from matplotlib import colors
 import pandas as pd
-# import matplotlib.pyplot as plt
 
 url = 'http://pokemondb.net/pokedex/all'
 
@@ -29,8 +26,7 @@ i = 0
 for t in tr_elements[0]:
     i += 1
     name = t.text_content()
-    # TODO
-    print('%d:"%s"' % (i, name))
+    print(f'{i}:{name}')
     col.append((name, []))
 
 # Since out first row is the header, data is stored on the second row onwards
@@ -67,17 +63,14 @@ df = pd.DataFrame(Dict)
 
 print(df.head())
 
-# TODO
-
 
 def str_bracket(word):
     """Add brackets around second term"""
-    # TODO
-    list = [x for x in word]
-    for char_ind in range(1, len(list)):
-        if list[char_ind].isupper():
-            list[char_ind] = ' ' + list[char_ind]
-    fin_list = ''.join(list).split(' ')
+    str_list = [x for x in word]
+    for char_ind in range(1, len(str_list)):
+        if str_list[char_ind].isupper():
+            str_list[char_ind] = ' ' + str_list[char_ind]
+    fin_list = ''.join(str_list).split(' ')
     length = len(fin_list)
     if length > 1:
         fin_list.insert(1, '(')
@@ -88,12 +81,12 @@ def str_bracket(word):
 def str_break(word):
     """Break strings at upper case"""
     # TODO
-    list = [x for x in word]
-    for char_ind in range(1, len(list)):
-        if list[char_ind].isupper():
-            list[char_ind] = ' ' + list[char_ind]
+    str_list = [x for x in word]
+    for char_ind in range(1, len(str_list)):
+        if str_list[char_ind].isupper():
+            str_list[char_ind] = ' ' + str_list[char_ind]
     # TODO
-    fin_list = ''.join(list).split(' ')
+    fin_list = ''.join(str_list).split(' ')
     return fin_list
 
 
@@ -111,21 +104,20 @@ print(df.head())
 def max_stats(df, col_list):
     """Get Pokemon highest value of the column in the Data Frame"""
     message = ''
-    for col in col_list:
-        stat = df[col].max()
-        name = df[df[col]==df[col].max()]['Name'].values[0]
-        message += name+' has the greatest '+col+' of '+str(stat)+'.\n'
+    for max_col in col_list:
+        stat = df[max_col].max()
+        max_name = df[df[max_col] == df[max_col].max()]['Name'].values[0]
+        message += max_name+' has the greatest '+max_col+' of '+str(stat)+'.\n'
     return message
 
 
 def min_stats(df, col_list):
     """Get Pokemon lowest value of the column in the Data Frame"""
     message = ''
-    # TODO shadow name
-    for col in col_list:
-        stat = df[col].min()
-        name = df[df[col] == df[col].min()]['Name'].values[0]
-        message += name+' has the worst '+col+' of '+str(stat)+'.\n'
+    for min_col in col_list:
+        stat = df[min_col].min()
+        min_name = df[df[min_col] == df[min_col].min()]['Name'].values[0]
+        message += min_name+' has the worst '+min_col+' of '+str(stat)+'.\n'
     return message
 
 
