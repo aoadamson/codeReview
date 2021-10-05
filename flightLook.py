@@ -1,5 +1,4 @@
-import requests, six
-import lxml.html as lh
+import requests
 from bs4 import BeautifulSoup
 from pprint import pprint
 
